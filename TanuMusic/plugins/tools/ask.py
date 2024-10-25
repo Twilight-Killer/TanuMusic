@@ -7,7 +7,7 @@ from TanuMusic import app
 
 # Function to query the AI API
 def ask_query(query, model=None):
-    default_model = 'claude-sonnet-3.5'
+    default_model = 'gpt-4o'
     system_prompt = """Hey! I'm TanuMusic."""
 
     model = model or default_model
