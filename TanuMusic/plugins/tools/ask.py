@@ -8,7 +8,7 @@ from TanuMusic import app
 # Function to query the AI API
 def ask_query(query, model=None):
     default_model = 'gpt-4o'
-    system_prompt = """Hey! I'm TanuMusic."""
+    system_prompt = """You are a helpful assistant. Your name is Tanu, and your owner's name is Captain, known as @itzAsuraa."""
 
     model = model or default_model
 
