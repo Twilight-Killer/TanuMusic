@@ -8,7 +8,7 @@ from TanuMusic import app
 
 def ask_query(query, model=None):
     default_model = 'mistralai/Mixtral-8x7B-Instruct-v0.1'
-    system_prompt = """You are TanuMusic, a Telegram bot managed by 𝐓ʜᴇ 𝐂ᴀᴘᴛᴀɪɴ's </> (@itzAsuraa)."""
+    system_prompt = """You are ResponseByAi, a Telegram bot managed by 𝐓ʜᴇ 𝐂ᴀᴘᴛᴀɪɴ's </> (@itzAsuraa)."""
 
     model = model or default_model
 
@@ -46,8 +46,14 @@ async def ask_handler(client: Client, message: Message):
 
 @app.on_message(filters.mentioned & filters.group)
 async def mentioned_handler(client: Client, message: Message):
-    # Extract the text to process
-    user_text = message.reply_to_message.text.strip() if message.reply_to_message and message.reply_to_message.text else message.text.split(" ", 1)[1].strip()
+    # Extract text to process if there's text in the reply message or after the mention
+    user_text = (
+        message.reply_to_message.text.strip()
+        if message.reply_to_message and message.reply_to_message.text
+        else message.text.split(" ", 1)[1].strip()
+        if len(message.text.split(" ", 1)) > 1
+        else None
+    )
 
     if user_text:
         # Send typing action to simulate a response delay
@@ -58,7 +64,7 @@ async def mentioned_handler(client: Client, message: Message):
         user_mention = message.from_user.mention
         await message.reply_text(f"{user_mention}, {reply} 🚀")
     else:
-        await message.reply("👋 Please ask a question after mentioning me! I’m here to help! 😊")
+        await message.reply_text("👋 Please ask a question after mentioning me! I’m here to help! 😊")
 
 
 # Simulate Typing Action
